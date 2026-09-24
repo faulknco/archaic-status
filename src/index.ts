@@ -96,8 +96,9 @@ export async function handleRequest(request: Request, env: Env, deps: Deps = {})
     const cache = deps.cache === undefined ? (typeof caches !== 'undefined' ? caches.default : null) : deps.cache;
     const key = new Request(`${url.origin}/`, { method: 'GET' });
     if (cache) {
+      // The zone's Browser Cache TTL rewrites cache-control on Cache API hits; put ours back.
       const hit = await cache.match(key);
-      if (hit) return hit;
+      if (hit) return withHeaders(hit, { 'cache-control': `public, max-age=${PAGE_TTL_S}` });
     }
     const snapshot = await loadSnapshot(env);
     const html = renderPage(snapshot, TARGETS, nowSeconds(now));

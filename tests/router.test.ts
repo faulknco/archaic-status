@@ -64,7 +64,9 @@ describe('GET /', () => {
     const first = await handleRequest(new Request('https://status.archaic.ie/?x=1'), env, { now: nowMs, cache });
     expect(first.status).toBe(200);
     expect(store.has('https://status.archaic.ie/')).toBe(true);
+    store.get('https://status.archaic.ie/')!.headers.set('cache-control', 'public, max-age=14400'); // what the zone does to hits
     const second = await handleRequest(new Request('https://status.archaic.ie/'), envWith(memoryKv()), { now: nowMs, cache });
+    expect(second.headers.get('cache-control')).toBe('public, max-age=60');
     expect(await second.text()).toContain('class="state Down">Down');
   });
 });
