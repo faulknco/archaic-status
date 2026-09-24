@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "archaic-status",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-11",
+  "routes": [{ "pattern": "status.archaic.ie", "custom_domain": true }],
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "observability": { "logs": { "enabled": true } },
+  "kv_namespaces": [{ "binding": "STATUS_KV", "id": "3bde56ef7e6644ae8998330fb323eff3" }]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "archaic-status",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Public status page for Archaic's surfaces: a Cloudflare Worker that probes on a cron and renders from KV.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "wrangler dev --test-scheduled",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260924.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1",
+    "wrangler": "^4.115.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "workerd@1.20260923.1": true
+  }
+}
